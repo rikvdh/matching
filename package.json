@@ -1,6 +1,6 @@
 {
     "name": "matching",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "repo": "rikvdh/matching",
     "description": "String-based matching-engine for interpreting and handling string-based interfaces",
     "license": "MIT",
