@@ -14,6 +14,10 @@
     ],
     "src": [
         "matching.h",
-        "matching.c"
+        "matching.c",
+        "deps/zabuffer/zabuffer.h",
+        "deps/zabuffer/zabuffer.c",
+        "deps/zringbuf/zringbuf.h",
+        "deps/zringbuf/zringbuf.c"
     ]
 }
