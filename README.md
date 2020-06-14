@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/rikvdh/matching.svg?branch=master)](https://travis-ci.org/rikvdh/matching)
 
-String-based matching-engine for interpreting and handling string-based interfaces
+String-based parser based on matching strings for interpreting and handling string-based interfaces (like GSM-modem AT commands)
 
 ## Installation
 
