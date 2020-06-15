@@ -21,12 +21,12 @@ clib install rikvdh/matching
 #include <stdio.h>
 
 static struct matching_ctx ctx;
-static uint8_t ctx_linebuffer[256];
+static char ctx_linebuffer[256];
 
 static void matching_cb_match_ko(struct matching_ctx *ctx)
 {
 	(void)ctx;
-    printf("Matched on 'TEST'\n");
+	printf("Matched on 'TEST'\n");
 }
 
 static const struct matching_item matching_items[] = {
@@ -35,20 +35,20 @@ static const struct matching_item matching_items[] = {
 
 int main(int argc, char **argv)
 {
-    ctx.cfg.flags           = MATCHING_ITEM_FLAG_CB_ON_RESET;
-	ctx.cfg.reset_chars     = "\n";
+	ctx.cfg.flags       = MATCHING_ITEM_FLAG_CB_ON_RESET;
+	ctx.cfg.reset_chars = "\n";
 	za_buffer_init(&ctx.linebuffer, ctx_linebuffer, sizeof(ctx_linebuffer));
-	ctx.items.list          = matching_items;
-	ctx.items.n             = sizeof(matching_items)/sizeof(matching_items[0]);
-	ctx.items.state         = matching_items_state;
-	matching_reset(&ctx);
+	ctx.items.list      = matching_items;
+	ctx.items.n         = sizeof(matching_items)/sizeof(matching_items[0]);
+	ctx.items.state     = matching_items_state;
+	matching_init(&ctx);
 
-    matching_feed(&ctx, 'T', true);
-    matching_feed(&ctx, 'E', true);
-    matching_feed(&ctx, 'S', true);
-    matching_feed(&ctx, 'T', true);
-    matching_feed(&ctx, '\n', true);
+	matching_feed(&ctx, 'T', true);
+	matching_feed(&ctx, 'E', true);
+	matching_feed(&ctx, 'S', true);
+	matching_feed(&ctx, 'T', true);
+	matching_feed(&ctx, '\n', true);
 
-    return 0;
+	return 0;
 }
 ```

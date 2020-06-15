@@ -8,7 +8,7 @@
 #define LOG_TEST_START() printf("%s\n", __FUNCTION__)
 
 static struct matching_ctx ctx;
-static uint8_t ctx_linebuffer[256];
+static char ctx_linebuffer[256];
 static unsigned int match_count;
 static unsigned int match_count_ko;
 static const char input_data[] = "\r\nOK\r\nKO\r\nOK\r\nKO\r\nOK\r\nHI\r\n";
@@ -43,7 +43,7 @@ static const struct matching_item matching_items[] = {
 	{ MATCHING_ITEM_STR("OK"), 0, matching_cb_match },
 	{ MATCHING_ITEM_STR("KO"), MATCHING_ITEM_FLAG_CB_ON_MATCH | MATCHING_ITEM_FLAG_CB_ON_RESET, matching_cb_match_ko },
 	{ MATCHING_ITEM_STR("+NEVER:"), 0, matching_cb_match_rickroll },
-	{ (uint8_t *)"+NSMI:\0ERROR", 6, 0, matching_cb_nsmi }
+	{ (const char *)"+NSMI:\0ERROR", 6, 0, matching_cb_nsmi }
 };
 
 static enum matching_item_states matching_items_state[sizeof(matching_items)/sizeof(matching_items[0])];

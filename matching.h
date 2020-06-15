@@ -13,9 +13,9 @@ extern "C" {
 #include "zabuffer.h"
 
 #ifdef __cplusplus
-#define MATCHING_ITEM_STR(_s) reinterpret_cast<const uint8_t *>(_s), sizeof(_s) - 1
+#define MATCHING_ITEM_STR(_s) reinterpret_cast<const char *>(_s), sizeof(_s) - 1
 #else
-#define MATCHING_ITEM_STR(_s) .s = (const uint8_t *)_s, .size = sizeof(_s) - 1
+#define MATCHING_ITEM_STR(_s) .s = (const char *)_s, .size = sizeof(_s) - 1
 #endif
 
 #ifndef MATCHING_RINGBUF_SIZE
