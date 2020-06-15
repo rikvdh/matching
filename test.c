@@ -61,7 +61,7 @@ void prepare_ctx(void)
 	ctx.items.list          = matching_items;
 	ctx.items.n             = sizeof(matching_items)/sizeof(matching_items[0]);
 	ctx.items.state         = matching_items_state;
-	matching_reset(&ctx);
+	matching_init(&ctx);
 }
 
 void test_matching_feed_invalid(void)
