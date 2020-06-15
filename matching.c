@@ -94,15 +94,20 @@ void matching_decode(struct matching_ctx *ctx)
 	ctx->match.pos++;
 }
 
+void matching_init(struct matching_ctx *ctx)
+{
+	ctx->ringbuf.size = MATCHING_RINGBUF_SIZE;
+	ctx->ringbuf.buffer = ctx->ringbuf_data;
+	zringbuf_init(&ctx->ringbuf);
+	matching_reset(ctx);
+}
+
 void matching_reset(struct matching_ctx *ctx)
 {
 	matching_item_cb(ctx, MATCHING_ITEM_FLAG_CB_ON_RESET);
 
 	memset(ctx->items.state, MATCHING_STATE_NO_MATCH, sizeof(ctx->items.state[0]) * ctx->items.n);
 	memset(&ctx->match, 0, sizeof(ctx->match));
-	ctx->ringbuf.size = MATCHING_RINGBUF_SIZE;
-	ctx->ringbuf.buffer = ctx->ringbuf_data;
-	zringbuf_init(&ctx->ringbuf);
 	za_buffer_flush(&ctx->linebuffer);
 }
 

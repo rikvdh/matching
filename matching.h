@@ -23,7 +23,7 @@ extern "C" {
 #endif
 
 /**
- * Matching engine item state
+ * Matching item state
  */
 enum matching_item_states {
 	MATCHING_STATE_NO_MATCH    = 0, /**< Item not matched */
@@ -73,11 +73,11 @@ struct matching_ctx {
  * Matching item
  */
 struct matching_item {
-	const uint8_t *s;                  /**< Item string */
-	const size_t size;                 /**< String size */
-	uint8_t flags;                     /**< Item flags, when set to MATCHING_ITEM_FLAGS_DEFAULTS.
-										* matching_ctx.cfg.flags is used
-										*/
+	const char *s;         /**< Item string */
+	const size_t size;     /**< String size */
+	uint8_t flags;         /**< Item flags, when set to MATCHING_ITEM_FLAGS_DEFAULTS.
+				* matching_ctx.cfg.flags is used
+				*/
 	void (*cb)(struct matching_ctx *ctx); /**< Item match callback */
 };
 
@@ -89,8 +89,14 @@ struct matching_item {
 void matching_decode(struct matching_ctx *ctx);
 
 /**
- * Reset matching engine
+ * Initializes the matching engine
  * - Clear ring-buffer
+ * - Resets the matching engine via matching_reset
+ */
+void matching_init(struct matching_ctx *ctx);
+
+/**
+ * Reset matching engine
  * - Clear ctx->cfg.linebuffer.data
  * - Set all ctx->item->flags to default when set to MATCHING_ITEM_FLAGS_DEFAULTS
  * - Set all ctx->items state to NOMATCH
@@ -101,7 +107,7 @@ void matching_decode(struct matching_ctx *ctx);
 void matching_reset(struct matching_ctx *ctx);
 
 /**
- * Feed the matching engine data with size
+ * Feed data into the engine
  */
 void matching_feed(struct matching_ctx *ctx, char c, bool decode_now);
 
