@@ -5,8 +5,6 @@
 
 #include "matching.h"
 
-#define LOG_TEST_START() printf("%s\n", __FUNCTION__)
-
 static struct matching_ctx ctx;
 static char ctx_linebuffer[256];
 static unsigned int match_count;
@@ -68,14 +66,12 @@ void prepare_ctx(void)
 
 void test_matching_feed_invalid(void)
 {
-	LOG_TEST_START();
 	matching_feed(NULL, input_data[0], true);
 }
 
 /* Count amount of callbacks calls */
 void test_matching_count_cb_calls(void)
 {
-	LOG_TEST_START();
 	prepare_ctx();
 
 	for (int i = 0; i < strlen(input_data); i++) {
@@ -116,7 +112,6 @@ void test_matching_linebuffer_null(void)
 /* Count amount of callbacks calls */
 void test_matching_multi_chunk_ok_test(void)
 {
-	LOG_TEST_START();
 	const char chunk1[] = "Lorem ipsum, lorem ipsum\r\nO";
 	const char chunk2[] = "K\r\nmust match..\r\n";
 
@@ -135,7 +130,6 @@ void test_matching_multi_chunk_ok_test(void)
 
 void test_matching_rickroll(void)
 {
-	LOG_TEST_START();
 	const char chunk1[] = "\r\n\r\n+NEVER";
 	const char chunk2[] = ":gonna give you ";
 	const char chunk3[] = "up\r\n\r\nKO\r\nLALALA\r\n";
@@ -164,7 +158,6 @@ void test_matching_rickroll(void)
 
 void test_matching_nsmi(void)
 {
-	LOG_TEST_START();
 	const char chunk1[] = "\r\nOK\r\n\r\n+NSMI:SENT\r\n\r\nOK\r\n";
 
 	prepare_ctx();
