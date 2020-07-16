@@ -82,7 +82,9 @@ void matching_decode(struct matching_ctx *ctx)
 	}
 	zringbuf_dequeue(&ctx->ringbuf, &ch);
 	za_buffer_write_u8(&ctx->linebuffer, ch);
-	za_buffer_write_u8(ctx->cc, ch);
+	if (ctx->cc) {
+		za_buffer_write_u8(ctx->cc, ch);
+	}
 
 	if (ctx->skip) {
 		ctx->skip--;
