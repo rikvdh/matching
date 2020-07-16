@@ -82,16 +82,25 @@ void matching_decode(struct matching_ctx *ctx)
 	}
 	zringbuf_dequeue(&ctx->ringbuf, &ch);
 	za_buffer_write_u8(&ctx->linebuffer, ch);
+	za_buffer_write_u8(ctx->cc, ch);
 
-	/* Reset match engine when reset char is seen */
-	if (NULL != strchr(ctx->cfg.reset_chars, ch)) {
-		matching_reset(ctx);
-		return;
+	if (ctx->skip) {
+		ctx->skip--;
+	} else {
+		/* Reset match engine when reset char is seen */
+		if (NULL != strchr(ctx->cfg.reset_chars, ch)) {
+			matching_reset(ctx);
+			return;
+		}
+
+		matching_match(ctx, ch);
+		ctx->match.pos++;
 	}
+}
 
-	matching_match(ctx, ch);
-
-	ctx->match.pos++;
+void matching_skip(struct matching_ctx *ctx, uint32_t skip)
+{
+	ctx->skip = skip;
 }
 
 void matching_init(struct matching_ctx *ctx)

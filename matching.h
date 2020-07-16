@@ -48,6 +48,8 @@ struct matching_ctx {
 	char ringbuf_data[MATCHING_RINGBUF_SIZE];
 	struct zringbuf ringbuf;
 	struct za_buffer linebuffer;
+	struct za_buffer *cc;
+	uint32_t skip;
 
 	/** Configuration */
 	struct cfg {
@@ -87,6 +89,8 @@ struct matching_item {
  * - Chomp all non printables (less than ' ' || bigger than '~')
  */
 void matching_decode(struct matching_ctx *ctx);
+
+void matching_skip(struct matching_ctx *ctx, uint32_t skip);
 
 /**
  * Initializes the matching engine
